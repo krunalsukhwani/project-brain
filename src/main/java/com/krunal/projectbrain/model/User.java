@@ -34,4 +34,11 @@ public class User {
 
     @ManyToMany
     private Set<User> followers;
+
+    @OneToMany
+    private Set<Idea> todo;
+
+    @OneToMany
+    @JsonIgnore
+    private Set<Idea> ideas;
 }
