@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.krunal.projectbrain.form.FollowForm;
 import com.krunal.projectbrain.form.IdeaForm;
+import com.krunal.projectbrain.form.IdeaResponseForm;
 import com.krunal.projectbrain.form.UserForm;
 import com.krunal.projectbrain.model.Idea;
 import com.krunal.projectbrain.model.User;
@@ -30,8 +31,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/{username}/ideas")
-    public IdeaForm getIdeasForUser(@PathVariable String username) {
-        IdeaForm responseForm = new IdeaForm();
+    public IdeaResponseForm getIdeasForUser(@PathVariable String username) {
+        IdeaResponseForm responseForm = new IdeaResponseForm();
         try {
             responseForm.setData(userRepository.findUserByUsername(username).orElseThrow().getIdeas());
         } catch (Exception e) {
@@ -81,7 +82,7 @@ public class UserController {
         return responseUser;
     }
 
-    @GetMapping("/brain/{username}/followers")
+    @GetMapping("/user/{username}/followers")
     public UserForm getFollowersForUser(@PathVariable String username) {
         UserForm responseForm = new UserForm();
         try {
@@ -93,9 +94,9 @@ public class UserController {
         return responseForm;
     }
 
-    @GetMapping("/brain/{username}/todos")
-    public IdeaForm getTodosForBrain(@PathVariable String username) {
-        IdeaForm responseForm = new IdeaForm();
+    @GetMapping("/user/{username}/todos")
+    public IdeaResponseForm getTodosForBrain(@PathVariable String username) {
+        IdeaResponseForm responseForm = new IdeaResponseForm();
         try {
             responseForm.setData(userRepository.findUserByUsername(username).orElseThrow().getTodo());
         } catch (Exception e) {

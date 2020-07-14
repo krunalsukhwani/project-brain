@@ -1,6 +1,7 @@
 package com.krunal.projectbrain.controller;
 
 import com.krunal.projectbrain.form.IdeaForm;
+import com.krunal.projectbrain.form.IdeaResponseForm;
 import com.krunal.projectbrain.form.TodoForm;
 import com.krunal.projectbrain.model.Idea;
 import com.krunal.projectbrain.model.User;
@@ -9,7 +10,7 @@ import com.krunal.projectbrain.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.Collection;
+import java.util.HashSet;
 
 @RestController
 public class IdeaController {
@@ -23,8 +24,15 @@ public class IdeaController {
     }
 
     @GetMapping("/ideas")
-    public Collection<Idea> findAll() {
-        return ideaRepository.findAll();
+    public IdeaResponseForm findAll() {
+        IdeaResponseForm responseForm = new IdeaResponseForm();
+        try {
+            responseForm.setData(new HashSet<Idea>(ideaRepository.findAll()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseForm.setData(new HashSet<Idea>());
+        }
+        return responseForm;
     }
 
     @GetMapping("/idea")
