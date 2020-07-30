@@ -8,6 +8,7 @@ import com.krunal.projectbrain.model.Idea;
 @Data
 public class IdeaForm {
     private String id;
+    private String citeIdeaId;
     private String title;
     private String context;
     private String content;

@@ -11,6 +11,7 @@ import com.krunal.projectbrain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 public class IdeaController {
@@ -55,6 +56,7 @@ public class IdeaController {
         try{
             User user = userRepository.findUserByUsername(ideaForm.getUsername()).orElseThrow();
             Idea idea = new Idea();
+            idea.setCiteIdeaId(ideaForm.getCiteIdeaId());
             idea.setTitle(ideaForm.getTitle());
             idea.setContext(ideaForm.getContext());
             idea.setContent(ideaForm.getContent());
@@ -81,5 +83,24 @@ public class IdeaController {
             e.printStackTrace();
             return new User();
         }
+    }
+
+    @GetMapping(value = "/idea/{title}/ideas")
+    public IdeaResponseForm getIdeasByTitle(@PathVariable String title) {
+        IdeaResponseForm responseForm = new IdeaResponseForm();
+        try {
+            Set<Idea> ideasByTitle = ideaRepository.findIdeaByTitleContainingIgnoreCase(title);
+
+            if(ideasByTitle == null) {
+                responseForm.setData(new HashSet<>());
+            } else {
+                responseForm.setData(ideasByTitle);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseForm.setData(new HashSet<Idea>());
+        }
+        return responseForm;
     }
 }

@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.krunal.projectbrain.form.FollowForm;
-import com.krunal.projectbrain.form.IdeaForm;
+//import com.krunal.projectbrain.form.IdeaForm;
 import com.krunal.projectbrain.form.IdeaResponseForm;
 import com.krunal.projectbrain.form.UserForm;
 import com.krunal.projectbrain.model.Idea;

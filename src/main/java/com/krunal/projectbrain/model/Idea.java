@@ -12,6 +12,9 @@ public class Idea {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = false, nullable = true)
+    private String citeIdeaId;
+
     @Column(unique = false, nullable = false)
     private String title;
 
